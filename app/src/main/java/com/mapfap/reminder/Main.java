@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.Date;
 
 public class Main extends Activity {
 
@@ -35,12 +36,13 @@ public class Main extends Activity {
 
     private void MakeNotification(String text) {
         Log.d("Main", text);
-        appendLog(Calendar.getInstance().getTime().toString() + ": " + text);
+        Calendar timestamp = Calendar.getInstance();
+        appendLog(timestamp.getTime().toString() + ": " + text);
         Notification.Builder mBuilder =
                 new Notification.Builder(this)
-                        .setSmallIcon(android.R.drawable.ic_menu_help)
+                        .setSmallIcon(android.R.drawable.ic_popup_reminder)
                         .setContentTitle(text);
-        mNotifyMgr.notify(1, mBuilder.build());
+        mNotifyMgr.notify((int) timestamp.getTimeInMillis(), mBuilder.build());
     }
 
     public void appendLog(String text) {
